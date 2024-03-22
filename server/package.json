@@ -1,0 +1,24 @@
+{
+  "name": "BeeJee",
+  "version": "1.0.0",
+  "description": "Тестовое Салимов Руслан",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "start": "cross-env NODE_ENV=production node app.js",
+    "serve": "cross-env NODE_ENV=development nodemon app.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "chalk": "^5.3.0",
+    "config": "^3.3.11",
+    "cors": "^2.8.5",
+    "express": "^4.19.1",
+    "express-validator": "^7.0.1",
+    "nodemon": "^3.1.0",
+    "pg": "^8.11.3",
+    "sequelize": "^6.37.1"
+  }
+}
