@@ -21,6 +21,7 @@ const ButtonStyled = ({
       size="medium"
       color={color}
       sx={{
+        width: "fit-content",
         padding: "16px",
         background: background,
         height: height,
