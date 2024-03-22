@@ -1,35 +1,43 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import styled from "@emotion/styled";
+import { ToastContainer } from "react-toastify";
+import { Box, CssBaseline } from "@mui/material";
+// AppLoader
+import AppLoader from "./hoc/app-loader";
+// routes
+import AppRoutes from "@routes/routes";
+// components
+import TopBar from "./components/ui/topbar/topbar";
+
+export const AppStyled = styled(Box)`
+  height: 100vh;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  background-color: #007bff;
+  background-image: linear-gradient(to top, #007bff, #00bcd4);
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-size: cover;
+`;
 
 function App() {
-  const [count, setCount] = useState(0)
-
   return (
-    <>
-      <div>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
-  )
+    <Box>
+      <CssBaseline />
+      <AppLoader>
+        <AppStyled>
+          <TopBar />
+          <AppRoutes />
+        </AppStyled>
+      </AppLoader>
+
+      <ToastContainer
+        position="bottom-left"
+        className="toast-container"
+        autoClose={2200}
+      />
+    </Box>
+  );
 }
 
-export default App
+export default App;
