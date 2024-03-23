@@ -9,7 +9,7 @@ const User = sequelize.define(
       defaultValue: DataTypes.UUIDV4,
       primaryKey: true
     },
-    email: {
+    login: {
       type: DataTypes.STRING,
       allowNull: false,
       unique: true

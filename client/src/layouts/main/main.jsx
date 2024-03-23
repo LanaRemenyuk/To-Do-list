@@ -22,7 +22,7 @@ const Main = React.memo(() => {
   });
 
   const tasksList = useSelector(getTasksList());
-  console.log("tasksList", tasksList);
+  // console.log("tasksList", tasksList);
 
   const { handleOpenTaskPage, handleCloseTaskPage } =
     useDialogHandlers(setState);

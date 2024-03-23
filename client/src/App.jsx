@@ -1,6 +1,6 @@
-import styled from "@emotion/styled";
 import { ToastContainer } from "react-toastify";
-import { Box, CssBaseline } from "@mui/material";
+import { Box, CssBaseline, styled } from "@mui/material";
+import "react-toastify/dist/ReactToastify.css";
 // AppLoader
 import AppLoader from "./hoc/app-loader";
 // routes
@@ -9,7 +9,6 @@ import AppRoutes from "@routes/routes";
 import TopBar from "./components/ui/topbar/topbar";
 
 export const AppStyled = styled(Box)`
-  height: 100vh;
   min-height: 100%;
   padding: 20px 20px 80px 20px;
   display: flex;
@@ -23,7 +22,7 @@ export const AppStyled = styled(Box)`
 
 function App() {
   return (
-    <Box>
+    <>
       <CssBaseline />
       <AppLoader>
         <AppStyled>
@@ -37,7 +36,7 @@ function App() {
         className="toast-container"
         autoClose={2200}
       />
-    </Box>
+    </>
   );
 }
 

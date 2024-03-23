@@ -14,6 +14,7 @@ import { loginSchema } from "@schemas/login.schema";
 // forms
 import AuthForm from "@forms/auth-form";
 // store
+import { login } from "@store/user/users.store";
 
 const Component = styled(Box)`
   height: 100%;
@@ -34,12 +35,13 @@ const FormContainer = styled(Box)`
 `;
 
 const initialState = {
-  email: "",
+  login: "",
   password: ""
 };
 
 const Login = React.memo(({ onClose }) => {
   const [isLoading, setIsLoading] = useState(false);
+  const dispatch = useDispatch();
 
   const {
     register,
@@ -55,24 +57,24 @@ const Login = React.memo(({ onClose }) => {
   const data = watch();
 
   const onSubmit = () => {
-    // setIsLoading(true);
+    setIsLoading(true);
 
     const newData = {
       ...data,
-      email: data.email.trim()
+      login: data.login.trim()
     };
 
-    // dispatch(login(newData))
-    //   .then(() => {
-    //     navigate(redirectPath, { replace: true });
-    //     onClose();
-    //   })
-    //   .catch((error) => {
-    //     toast.error(error);
-    //   })
-    //   .finally(() => {
-    //     setIsLoading(false);
-    //   });
+    dispatch(login(newData))
+      .then(() => {
+        onClose();
+        toast.success("Добро пожаловать в Систему!");
+      })
+      .catch((error) => {
+        toast.error(error);
+      })
+      .finally(() => {
+        setIsLoading(false);
+      });
   };
 
   return (

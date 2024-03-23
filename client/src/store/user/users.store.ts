@@ -3,7 +3,7 @@ import { createSlice } from "@reduxjs/toolkit";
 import authService from "@services/auth/auth-service";
 import localStorageService from "@services/auth/local.storage-service";
 
-const initialState = localStorageService.getAccessToken()
+const initialState = localStorageService.getUserId()
   ? {
       entities: [],
       isLoading: true,
@@ -49,7 +49,8 @@ export const login = (payload) => async (dispatch) => {
   dispatch(authRequested());
   try {
     const data = await authService.login(payload);
-    localStorageService.setTokens(data);
+
+    localStorageService.setData(data);
     dispatch(authRequestSuccess({ userId: data.userId }));
   } catch (error) {
     const errorMessage = error.response.data.error.message;
@@ -59,7 +60,7 @@ export const login = (payload) => async (dispatch) => {
 };
 
 export const logOut = () => (dispatch) => {
-  localStorageService.removeAuthData();
+  localStorageService.removeData();
   dispatch(userLoggedOut());
 };
 

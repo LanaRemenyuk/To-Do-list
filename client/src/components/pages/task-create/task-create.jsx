@@ -48,7 +48,7 @@ const TaskCreate = ({ onClose }) => {
     dispatch(createTask(newData))
       .then(() => {
         onClose();
-        // toast.success("Задача успешно создана!");
+        toast.success("Задача успешно создана!");
       })
       .catch((error) => {
         toast.error(error);

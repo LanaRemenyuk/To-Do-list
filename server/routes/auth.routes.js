@@ -6,7 +6,7 @@ const router = express.Router({ mergeParams: true });
 
 // логин
 router.post("/signInWithPassword", [
-  check("email", "Email некорректный").isEmail(),
+  check("login", "Логин некорректный").trim(),
   check("password", "Пароль не может быть пустым").exists().trim(),
   async (req, res) => {
     try {
@@ -21,9 +21,9 @@ router.post("/signInWithPassword", [
         });
       }
 
-      const { email, password } = req.body;
+      const { login, password } = req.body;
 
-      const existingUser = await User.findOne({ where: { email } });
+      const existingUser = await User.findOne({ where: { login } });
 
       if (!existingUser) {
         return res.status(400).send({
@@ -34,10 +34,7 @@ router.post("/signInWithPassword", [
         });
       }
 
-      const isPasswordEqual = await bcrypt.compare(
-        password,
-        existingUser.password
-      );
+      const isPasswordEqual = password === existingUser.password;
 
       if (!isPasswordEqual) {
         return res.status(400).send({

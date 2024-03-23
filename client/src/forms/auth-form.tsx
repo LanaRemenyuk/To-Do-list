@@ -22,11 +22,10 @@ const AuthForm = ({ data, register, errors }) => {
       <FieldsContainer sx={{ flexDirection: "column" }}>
         <TextFieldStyled
           register={register}
-          label="Почта"
-          type="text"
-          name="email"
-          errors={errors?.email}
-          value={data?.email}
+          label="Логин"
+          name="login"
+          errors={errors?.login}
+          value={data?.login}
           inputProps={{ maxLength: 150 }}
         />
 

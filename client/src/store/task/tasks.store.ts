@@ -1,10 +1,9 @@
-import { createAction, createSelector, createSlice } from "@reduxjs/toolkit";
+import { createAction, createSlice } from "@reduxjs/toolkit";
 // services
 import localStorageService from "@services/auth/local.storage-service";
 import tasksService from "@services/task/tasks.service";
-// config
 
-const initialState = localStorageService.getAccessToken()
+const initialState = localStorageService.getUserId()
   ? {
       entities: null,
       isLoading: true,
