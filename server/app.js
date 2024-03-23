@@ -1,5 +1,6 @@
 import routes from "./routes/index.js";
 // utils
+import { corsOptions } from "./utils/cors-options.js";
 import postgreConnection from "./utils/postgre-conection.js";
 // modules
 import express from "express";
@@ -12,24 +13,6 @@ const PORT = config.get("port") ?? 8080;
 
 const app = express();
 const server = https.createServer(app);
-
-const corsOptions = {
-  origin: [
-    "https://bee-jee-gamma.vercel.app/",
-    "https://bee-jee-xi.vercel.app/",
-    "https://bee-jee-client.vercel.app/",
-    "http://localhost:5173"
-  ],
-  methods: ["GET", "POST", "HEAD", "PUT", "DELETE", "PATCH", "OPTIONS"],
-  allowedHeaders: [
-    "Origin",
-    "X-Requested-With",
-    "Content-Type",
-    "Accept",
-    "Authorization"
-  ],
-  credentials: true
-};
 
 app.use(cors(corsOptions));
 app.use(express.json());
