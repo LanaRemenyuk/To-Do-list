@@ -12,8 +12,12 @@ const useDialogHandlers = (setState) => {
   };
 
   // обновление стейта при открытии страницы обновления задачи
-  const handleOpenUpdateTaskPage = () => {
-    setState((prevState) => ({ ...prevState, updateTaskPage: true }));
+  const handleOpenUpdateTaskPage = (taskId) => {
+    setState((prevState) => ({
+      ...prevState,
+      updateTaskPage: true,
+      taskId: taskId
+    }));
   };
   const handleCloseUpdateTaskPage = () => {
     setState((prevState) => ({ ...prevState, updateTaskPage: false }));

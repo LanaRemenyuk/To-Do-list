@@ -11,9 +11,7 @@ const AuthForm = ({ data, register, errors }) => {
   const [showPassword, setShowPassword] = useState(false);
 
   const handleClickShowPassword = () => setShowPassword((show) => !show);
-  const handleMouseDownPassword = (
-    event: React.MouseEvent<HTMLButtonElement>
-  ) => {
+  const handleMouseDownPassword = () => {
     event.preventDefault();
   };
 

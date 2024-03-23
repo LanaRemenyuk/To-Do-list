@@ -1,12 +1,28 @@
+import { useSelector } from "react-redux";
 // components
 import TextFieldStyled from "@components/common/inputs/text-field-styled";
 // components
 import { FieldsContainer, Form } from "@components/common/forms/styled";
+import SimpleSwitch from "@components/common/inputs/simple-switch";
 // utils
 import { capitalizeFirstLetter } from "@utils/data/capitalize-first-letter";
 import { capitalizeAllFirstLetters } from "@utils/data/capitalize-all-first-letters";
+// store
+import { getIsLoggedIn } from "@store/user/users.store";
+import { getTaskLoadingStatus } from "@store/task/tasks.store";
 
-const TaskForm = ({ data, register, errors, watch }) => {
+const TaskForm = ({
+  data,
+  register,
+  errors,
+  watch,
+  setValue,
+  isUpdate = false
+}) => {
+  const watchIsDone = watch("isDone");
+  const isLoggedIn = useSelector(getIsLoggedIn());
+  const isTasksLoading = useSelector(getTaskLoadingStatus());
+
   return (
     <Form>
       <FieldsContainer sx={{ flexDirection: "column" }}>
@@ -40,6 +56,16 @@ const TaskForm = ({ data, register, errors, watch }) => {
           multiline={true}
           inputProps={{ maxLength: 350 }}
         />
+        {isLoggedIn && isUpdate ? (
+          <SimpleSwitch
+            title="Задача выполненна"
+            value={watchIsDone}
+            isLoading={isTasksLoading}
+            onChange={(e) => {
+              setValue("isDone", e.target.checked);
+            }}
+          />
+        ) : null}
       </FieldsContainer>
     </Form>
   );

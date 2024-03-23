@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { toast } from "react-toastify";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 // components
@@ -12,30 +12,36 @@ import TaskForm from "@forms/task.form";
 // schemas
 import { taskSchema } from "@schemas/task.shema";
 // store
-import { createTask } from "@store/task/tasks.store";
+import { createTask, getTaskById, updateTask } from "@store/task/tasks.store";
 
-const initialState = {
-  userName: "",
-  userEmail: "",
-  text: ""
-};
-
-const TaskCreate = ({ onClose }) => {
+const TaskUpdate = ({ onClose, taskId }) => {
   const [isLoading, setIsLoading] = useState(false);
   const dispatch = useDispatch();
+
+  const task = useSelector(getTaskById(taskId));
+  const taskText = task?.text;
 
   const {
     register,
     watch,
     handleSubmit,
+    setValue,
     formState: { errors }
   } = useForm({
-    defaultValues: initialState,
+    defaultValues: task,
     mode: "onSubmit",
     resolver: yupResolver(taskSchema)
   });
 
   const data = watch();
+
+  const isTextUpdated = () => {
+    if (taskText.trim() !== data.text.trim()) {
+      return true;
+    } else {
+      return false;
+    }
+  };
 
   const onSubmit = () => {
     setIsLoading(true);
@@ -43,13 +49,14 @@ const TaskCreate = ({ onClose }) => {
     const newData = {
       ...data,
       userName: data.userName.trim(),
-      text: data.text.trim()
+      text: data.text.trim(),
+      isAdminUpdated: isTextUpdated()
     };
 
-    dispatch(createTask(newData))
+    dispatch(updateTask(newData))
       .then(() => {
         onClose();
-        toast.success("Задача успешно создана!");
+        toast.success("Задача успешно обновлена!");
       })
       .catch((error) => {
         toast.error(error);
@@ -61,8 +68,18 @@ const TaskCreate = ({ onClose }) => {
 
   return (
     <>
-      <HeaderWithCloseButton title="Создать новую задачу" onClose={onClose} />
-      <TaskForm data={data} register={register} errors={errors} watch={watch} />
+      <HeaderWithCloseButton
+        title="Обновить выбранную задачу"
+        onClose={onClose}
+      />
+      <TaskForm
+        data={data}
+        register={register}
+        errors={errors}
+        watch={watch}
+        setValue={setValue}
+        isUpdate={true}
+      />
       <SuccessCancelFormButtons
         onSuccess={handleSubmit(onSubmit)}
         onCancel={onClose}
@@ -72,4 +89,4 @@ const TaskCreate = ({ onClose }) => {
   );
 };
 
-export default TaskCreate;
+export default TaskUpdate;

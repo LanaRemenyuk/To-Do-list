@@ -1,8 +1,13 @@
 import { Box, Paper, Typography, styled } from "@mui/material";
 import { formatDate } from "@utils/date/format-date";
+import { useState } from "react";
 // components
 import DoneStatusIcon from "./components/done-status-icon";
 import TaskTitle from "./components/task-title";
+import ButtonStyled from "../buttons/button-styled.button";
+import TaskFooter from "./components/task-footer";
+// hooks
+import useDialogHandlers from "@hooks/dialog/use-dialog-handlers";
 
 const TaskContainer = styled(Paper)`
   padding: 20px;
@@ -11,29 +16,23 @@ const TaskContainer = styled(Paper)`
   margin-bottom: 10px;
 `;
 
-const TaskDate = styled(Box)`
-  width: 100%;
-  display: flex;
-  justify-content: end;
-`;
-
 const UserEmail = styled(Typography)`
   font-style: italic;
   margin-bottom: 8px;
 `;
 
-const TaskText = styled(Typography)``;
+const TaskText = styled(Typography)`
+  margin-bottom: 20px;
+`;
 
-const Task = ({ task }) => {
+const Task = ({ task, setState }) => {
   return (
     <TaskContainer variant="elevation">
       <TaskTitle task={task} />
       <UserEmail>{task?.userEmail}</UserEmail>
       <TaskText>{task?.text}</TaskText>
 
-      <TaskDate>
-        <Typography>{formatDate(task?.created_at)}</Typography>
-      </TaskDate>
+      <TaskFooter task={task} setState={setState} />
     </TaskContainer>
   );
 };

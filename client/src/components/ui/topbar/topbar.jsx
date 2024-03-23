@@ -15,6 +15,7 @@ import ApplicationName from "@components/ui/topbar/components/application-name";
 import ButtonStyled from "@components/common/buttons/button-styled.button";
 import DialogStyled from "@components/common/dialog/dialog-styled";
 import Login from "@components/pages/login/login";
+import DialogConfirm from "@components/common/dialog/dialog-confirm";
 // common
 import { ContainerStyled } from "@common/container/container-styled";
 // hooks
@@ -31,6 +32,7 @@ const Component = styled(Box)`
 `;
 
 const TopBar = React.memo(() => {
+  const [open, setOpen] = useState(false);
   const [state, setState] = useState({
     openAuthPage: false
   });
@@ -42,7 +44,15 @@ const TopBar = React.memo(() => {
 
   const handleLogOut = () => {
     dispatch(logOut());
+    setOpen(false);
     toast.warning("Вы покинули Систему!");
+  };
+  const handleOpenCofirm = () => {
+    setOpen(true);
+  };
+
+  const handleCloseCofirm = () => {
+    setOpen(false);
   };
 
   return (
@@ -52,7 +62,7 @@ const TopBar = React.memo(() => {
       {!isLoggedIn ? (
         <ButtonStyled
           title="Войти"
-          color="secondary"
+          color="success"
           onClick={handleOpenAuthPage}
           icon={<LockOutlinedIcon />}
         />
@@ -60,11 +70,16 @@ const TopBar = React.memo(() => {
         <ButtonStyled
           title="Выйти"
           color="error"
-          onClick={handleLogOut}
+          onClick={handleOpenCofirm}
           icon={<ExitToAppOutlinedIcon />}
         />
       )}
-
+      <DialogConfirm
+        question="Вы уверены, что хотите выйти из Системы?"
+        open={open}
+        onSuccessClick={handleLogOut}
+        onClose={handleCloseCofirm}
+      />
       <DialogStyled
         component={<Login onClose={handleCloseAuthPage} />}
         maxWidth="xs"

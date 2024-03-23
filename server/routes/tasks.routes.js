@@ -34,6 +34,7 @@ router.post("/create", async (req, res) => {
 router.patch("/:taskId?/edit", async (req, res) => {
   try {
     const { taskId } = req.params;
+
     if (!taskId) {
       return res.status(400).json({
         message: "Необходимо указать идентификатор задачи (taskId)."
@@ -44,7 +45,7 @@ router.patch("/:taskId?/edit", async (req, res) => {
 
     if (!existingTask) {
       return res.status(404).json({
-        message: "Встреча не найдена."
+        message: "Задача не найдена."
       });
     }
 
