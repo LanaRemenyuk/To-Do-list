@@ -8,8 +8,8 @@
     "skipLibCheck": true,
 
     /* Bundler mode */
-    "moduleResolution": "node", // Change to "node" for paths to work properly
-    "baseUrl": "./", // Set the base URL for relative paths
+    "moduleResolution": "node",
+    "baseUrl": "./",
     "paths": {
       "@components/*": ["src/components/*"],
       "@common/*": ["src/components/common/*"],
