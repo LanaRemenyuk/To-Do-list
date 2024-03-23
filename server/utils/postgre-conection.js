@@ -1,16 +1,14 @@
 import chalk from "chalk";
-import config from "config";
 import { Sequelize } from "sequelize";
+import dotenv from "dotenv";
+dotenv.config();
 
-export const sequelize = new Sequelize(
-  config.get("DB_NAME"),
-  config.get("DB_USER"),
-  config.get("DB_PASSWORD"),
-  {
-    host: config.get("DB_HOST"),
-    dialect: "postgres"
-  }
-);
+const { DB_NAME, DB_USER, DB_PASSWORD, DB_HOST } = process.env;
+
+export const sequelize = new Sequelize(DB_NAME, DB_USER, DB_PASSWORD, {
+  host: DB_HOST,
+  dialect: "postgres"
+});
 
 const postgreConnection = () => {
   sequelize
