@@ -1,33 +1,32 @@
-import { Box, styled } from "@mui/material";
-import LayoutTitle from "./header-layout";
-import CloseButtonIconButton from "../buttons/icons buttons/close.button-icon";
-import { useTheme } from "@emotion/react";
-import { tokens } from "@theme/theme";
+import { Box, Typography, styled } from "@mui/material";
+import CloseButtonIconButton from "../buttons/close.button-icon";
 
 const Component = styled(Box)`
   width: 100%;
   display: flex;
   align-items: center;
   justify-content: space-between;
+  margin-bottom: 20px;
+`;
+
+const Title = styled(Typography)`
+  padding: 0 4px;
 `;
 
 const HeaderWithCloseButton = ({
   title = "",
   onClose,
-  background = "",
-  color = "white",
-  margin = "0 0 20px 0"
+  background = "OrangeRed",
+  color = "white"
 }) => {
-  const theme = useTheme();
-  const colors = tokens(theme.palette.mode);
   return (
-    <Component sx={{ margin: margin }}>
-      <LayoutTitle
-        title={title}
-        background={background ? background : colors.header["gold"]}
-        color={color}
-        margin="0px"
-      />
+    <Component>
+      <Typography
+        variant="h4"
+        sx={{ background: background, color: color, padding: "0 4px" }}
+      >
+        {title}
+      </Typography>
       <CloseButtonIconButton onClose={onClose} />
     </Component>
   );
