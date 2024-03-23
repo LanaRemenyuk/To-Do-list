@@ -1,6 +1,5 @@
 import routes from "./routes/index.js";
 // utils
-import { corsOptions } from "./utils/cors-options.js";
 import postgreConnection from "./utils/postgre-conection.js";
 // modules
 import express from "express";
@@ -12,27 +11,29 @@ import https from "https";
 const PORT = config.get("port") ?? 8080;
 
 const app = express();
-
 const server = https.createServer(app);
+
+const corsOptions = {
+  origin: [
+    "https://bee-jee-gamma.vercel.app/",
+    "https://bee-jee-xi.vercel.app/",
+    "http://localhost:5173"
+  ],
+  methods: ["GET", "POST", "HEAD", "PUT", "DELETE", "PATCH", "OPTIONS"],
+  allowedHeaders: [
+    "Origin",
+    "X-Requested-With",
+    "Content-Type",
+    "Accept",
+    "Authorization"
+  ],
+  credentials: true
+};
 
 app.use(cors(corsOptions));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use("/api", routes);
-
-app.use((req, res, next) => {
-  res.header(
-    "Access-Control-Allow-Origin",
-    "https://bee-jee-client.vercel.app/"
-  );
-  res.header(
-    "Access-Control-Allow-Methods",
-    "GET,PUT,POST,DELETE,PATCH,OPTIONS"
-  );
-  res.header("Access-Control-Allow-Headers", "Content-Type, Authorization");
-  res.header("Access-Control-Allow-Credentials", "true");
-  next();
-});
 
 server.listen(PORT, () =>
   console.log(chalk.green(`Server has been started on port ${PORT}`))
