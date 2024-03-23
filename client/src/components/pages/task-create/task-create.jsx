@@ -1,4 +1,6 @@
 import { useState } from "react";
+import { toast } from "react-toastify";
+import { useDispatch } from "react-redux";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 // components
@@ -9,6 +11,7 @@ import LoaderFullWindow from "@components/common/loader/loader-full-window";
 import TaskForm from "@forms/task.form";
 // schemas
 import { taskSchema } from "@schemas/task.shema";
+import { createTask } from "@store/task/tasks.store";
 
 const initialState = {
   userName: "",
@@ -18,6 +21,7 @@ const initialState = {
 
 const TaskCreate = ({ onClose }) => {
   const [isLoading, setIsLoading] = useState(false);
+  const dispatch = useDispatch();
 
   const {
     register,
@@ -33,7 +37,7 @@ const TaskCreate = ({ onClose }) => {
   const data = watch();
 
   const onSubmit = () => {
-    // setIsLoading(true);
+    setIsLoading(true);
 
     const newData = {
       ...data,
@@ -41,17 +45,17 @@ const TaskCreate = ({ onClose }) => {
       text: data.text.trim()
     };
 
-    // dispatch<any>(createTask(newData))
-    //   .then(() => {
-    //     onClose();
-    //     toast.success("Задача успешно создана!");
-    //   })
-    //   .catch((error) => {
-    //     toast.error(error);
-    //   })
-    //   .finally(() => {
-    //     setIsLoading(false);
-    //   });
+    dispatch(createTask(newData))
+      .then(() => {
+        onClose();
+        // toast.success("Задача успешно создана!");
+      })
+      .catch((error) => {
+        toast.error(error);
+      })
+      .finally(() => {
+        setIsLoading(false);
+      });
   };
 
   return (

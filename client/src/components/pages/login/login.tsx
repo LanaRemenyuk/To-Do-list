@@ -62,7 +62,7 @@ const Login = React.memo(({ onClose }) => {
       email: data.email.trim()
     };
 
-    // dispatch<any>(login(newData))
+    // dispatch(login(newData))
     //   .then(() => {
     //     navigate(redirectPath, { replace: true });
     //     onClose();

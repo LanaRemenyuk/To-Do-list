@@ -11,6 +11,8 @@ import DialogStyled from "@components/common/dialog/dialog-styled";
 import TaskCreate from "@components/pages/task-create/task-create";
 import React, { useState } from "react";
 import useDialogHandlers from "@hooks/dialog/use-dialog-handlers";
+import { useSelector } from "react-redux";
+import { getTasksList } from "@store/task/tasks.store";
 
 const Main = React.memo(() => {
   const [state, setState] = useState({
@@ -19,8 +21,8 @@ const Main = React.memo(() => {
     taskId: null
   });
 
-  const tasksList = PostsMockData;
-  // console.log("tasksList", tasksList);
+  const tasksList = useSelector(getTasksList());
+  console.log("tasksList", tasksList);
 
   const { handleOpenTaskPage, handleCloseTaskPage } =
     useDialogHandlers(setState);

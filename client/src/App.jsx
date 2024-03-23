@@ -9,7 +9,8 @@ import AppRoutes from "@routes/routes";
 import TopBar from "./components/ui/topbar/topbar";
 
 export const AppStyled = styled(Box)`
-  height: 100%;
+  height: 100vh;
+  min-height: 100%;
   padding: 20px 20px 80px 20px;
   display: flex;
   flex-direction: column;

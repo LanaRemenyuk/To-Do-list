@@ -1,6 +1,11 @@
 import { combineReducers, configureStore } from "@reduxjs/toolkit";
+import usersListReducer from "./user/users.store";
+import tasksReducer from "./task/tasks.store";
 
-const rootReducer = combineReducers({});
+const rootReducer = combineReducers({
+  users: usersListReducer,
+  tasks: tasksReducer
+});
 
 export function createStore() {
   return configureStore({
