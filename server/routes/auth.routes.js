@@ -4,7 +4,6 @@ import User from "../models/User.js";
 
 const router = express.Router({ mergeParams: true });
 
-// логин
 router.post("/signInWithPassword", [
   check("login", "Логин некорректный").trim(),
   check("password", "Пароль не может быть пустым").exists().trim(),

@@ -1,8 +1,8 @@
+import { useEffect, useState } from "react";
+import { slice } from "lodash";
 import Pagination from "@mui/material/Pagination";
 import { Box, styled } from "@mui/material";
 import Stack from "@mui/material/Stack";
-import { useEffect } from "react";
-import { slice } from "lodash";
 
 const Component = styled(Box)`
   width: 100%;
@@ -22,6 +22,7 @@ const StyledPagination = styled(Pagination)(() => ({
 }));
 
 const PaginationStyled = ({
+  elementsFullList,
   elements,
   elemPerPage,
   elementsPerPage,
@@ -29,8 +30,10 @@ const PaginationStyled = ({
   setCurrentPage,
   setPaginationSlicedElements
 }) => {
-  const indexOfLastElement = currentPage * elementsPerPage;
-  const indexOfFirstElement = indexOfLastElement - elementsPerPage;
+  const [totalPages, setTotalPages] = useState(1);
+
+  const indexOfFirstElement = (currentPage - 1) * elementsPerPage;
+  const indexOfLastElement = indexOfFirstElement + elementsPerPage;
   const paginationSlicedElements = slice(
     elements,
     indexOfFirstElement,
@@ -41,17 +44,31 @@ const PaginationStyled = ({
     setCurrentPage(value);
   };
 
-  useEffect(
-    () => setPaginationSlicedElements(paginationSlicedElements),
-    [elements, elemPerPage, elementsPerPage, currentPage]
-  );
+  useEffect(() => {
+    if (elements?.length > 0) {
+      const newTotalPages = Math.ceil(elements?.length / elemPerPage);
+      setTotalPages(newTotalPages);
+      if (currentPage > newTotalPages) {
+        setCurrentPage(newTotalPages);
+      }
+      const indexOfFirstElement = (currentPage - 1) * elementsPerPage;
+      const indexOfLastElement = indexOfFirstElement + elementsPerPage;
+      const paginationSlicedElements = slice(
+        elements,
+        indexOfFirstElement,
+        indexOfLastElement
+      );
+      setPaginationSlicedElements(paginationSlicedElements);
+    }
+  }, [elements, elemPerPage, elementsPerPage, currentPage, elementsFullList]);
+
   return (
-    elements?.length > elementsPerPage && (
+    elements?.length >= elementsPerPage && (
       <Component>
         <Stack spacing={2}>
           {elements?.length > 0 && (
             <StyledPagination
-              count={Math.ceil(elements?.length / elemPerPage)}
+              count={totalPages}
               page={currentPage}
               onChange={handlePageChange}
               variant="outlined"

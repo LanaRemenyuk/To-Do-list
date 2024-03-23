@@ -3,9 +3,9 @@ import { orderBy, slice } from "lodash";
 
 const useSortedTasks = (tasksList, setTasks) => {
   const [sortOrders, setSortOrders] = useState({
-    userName: "asc",
-    userEmail: "asc",
-    isDone: "asc"
+    userName: "desc",
+    userEmail: "desc",
+    isDone: "desc"
   });
 
   const sortTasks = (sortBy) => {
