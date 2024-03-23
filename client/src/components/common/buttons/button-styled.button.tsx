@@ -10,7 +10,8 @@ const ButtonStyled = ({
   background = null,
   backgroundHover = null,
   colorHover = null,
-  color
+  color,
+  margin
 }) => {
   return (
     <Button
@@ -25,6 +26,7 @@ const ButtonStyled = ({
         padding: "16px",
         background: background,
         height: height,
+        margin: margin,
         "&:hover": {
           color: colorHover,
           background: backgroundHover
