@@ -10,7 +10,6 @@ import cors from "cors";
 import https from "https";
 
 const PORT = config.get("port") ?? 8080;
-
 const app = express();
 
 const server = https.createServer(app);
