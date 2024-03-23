@@ -13,5 +13,5 @@ export const corsOptions = {
     "Authorization"
   ],
   credentials: true,
-  optionSuccessStatus: 200
+  optionsSuccessStatus: 200
 };
