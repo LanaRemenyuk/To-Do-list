@@ -64,6 +64,8 @@ export const logOut = () => (dispatch) => {
   dispatch(userLoggedOut());
 };
 
+export const getCurrentUserId = () => (state) => state?.users?.auth?.userId;
+
 export const getIsLoggedIn = () => (state) => state.users.isLoggedIn;
 
 export default usersListReducer;

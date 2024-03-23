@@ -13,6 +13,7 @@ import useDialogHandlers from "@hooks/dialog/use-dialog-handlers";
 const ButtonsContainer = styled(Box)`
   display: flex;
   gap: 4px;
+  margin-bottom: -6px;
 `;
 
 const Buttons = ({
@@ -21,10 +22,12 @@ const Buttons = ({
   sortOrders,
   sortedByName,
   sortedByEmail,
-  sortedByStatus
+  sortedByStatus,
+  sortedByAdminUpdate
 }) => {
   const { handleOpenTaskPage } = useDialogHandlers(setState);
   const hasDoneTask = tasksList?.filter((task) => task.isDone);
+  const hasAdminUpdated = tasksList?.filter((task) => task.isAdminUpdated);
 
   const rotatedIcon = (icon) => {
     return React.cloneElement(icon, { style: { transform: "rotate(180deg)" } });
@@ -40,7 +43,7 @@ const Buttons = ({
         icon={<AddCircleOutlineOutlinedIcon />}
       />
       <ButtonStyled
-        title="Сортировать по имени"
+        title="По имени"
         color="secondary"
         onClick={() => sortedByName()}
         margin="0 0 16px 0"
@@ -53,7 +56,7 @@ const Buttons = ({
         }
       />
       <ButtonStyled
-        title="Сортировать по почте"
+        title="По почте"
         color="secondary"
         onClick={sortedByEmail}
         margin="0 0 16px 0"
@@ -66,13 +69,27 @@ const Buttons = ({
         }
       />
       <ButtonStyled
-        title="Сортировать по выполнению"
+        title="По выполнению"
         color="secondary"
         onClick={sortedByStatus}
         margin="0 0 16px 0"
         disabled={!hasDoneTask?.length}
         icon={
           sortOrders?.isDone === "asc" ? (
+            <FilterListOutlinedIcon />
+          ) : (
+            rotatedIcon(<FilterListOutlinedIcon />)
+          )
+        }
+      />
+      <ButtonStyled
+        title="По редактированию"
+        color="secondary"
+        onClick={sortedByAdminUpdate}
+        margin="0 0 16px 0"
+        disabled={!hasAdminUpdated?.length}
+        icon={
+          sortOrders?.isAdminUpdated === "asc" ? (
             <FilterListOutlinedIcon />
           ) : (
             rotatedIcon(<FilterListOutlinedIcon />)

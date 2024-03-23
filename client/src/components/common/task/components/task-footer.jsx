@@ -16,7 +16,7 @@ import { checkIsLoggedIn } from "@utils/auth/check-is-logged-in";
 import useDialogHandlers from "@hooks/dialog/use-dialog-handlers";
 // store
 import { removeTask } from "@store/task/tasks.store";
-import { getIsLoggedIn } from "@store/user/users.store";
+import { getCurrentUserId, getIsLoggedIn } from "@store/user/users.store";
 
 const TaskDate = styled(Box)`
   width: 100%;
@@ -34,20 +34,28 @@ const TaskFooter = ({ task, setState }) => {
   const [isLoading, setIsLoading] = useState(false);
   const [open, setOpen] = useState(false);
   const isLoggedIn = useSelector(getIsLoggedIn());
+  const userId = useSelector(getCurrentUserId());
 
   const dispatch = useDispatch();
   const { handleOpenUpdateTaskPage } = useDialogHandlers(setState);
 
   const handleRemoveTask = (taskId) => {
     setIsLoading(true);
-    dispatch(removeTask(taskId))
-      .then(() => toast.success("Задача успешно удалена!"))
-      .catch((error) => {
-        toast.error(error);
-      })
-      .finally(() => {
-        setIsLoading(false);
-      });
+
+    if (checkIsLoggedIn(userId)) {
+      dispatch(removeTask(taskId))
+        .then(() => toast.success("Задача успешно удалена!"))
+        .catch((error) => {
+          toast.error(error);
+        })
+        .finally(() => {
+          setIsLoading(false);
+        });
+    } else {
+      setIsLoading(false);
+      setOpen(false);
+      toast.error("Авторизуйтесь в Системе!");
+    }
   };
 
   const handleOpenCofirm = () => {
@@ -65,15 +73,13 @@ const TaskFooter = ({ task, setState }) => {
           <ButtonStyled
             title="Редактировать"
             color="secondary"
-            onClick={() =>
-              checkIsLoggedIn() ? handleOpenUpdateTaskPage(task?._id) : null
-            }
+            onClick={() => handleOpenUpdateTaskPage(task?._id)}
             icon={<ModeEditOutlineOutlinedIcon />}
           />
           <ButtonStyled
             title="Удалить"
             color="error"
-            onClick={() => (checkIsLoggedIn() ? handleOpenCofirm : null)}
+            onClick={handleOpenCofirm}
             icon={<HighlightOffOutlinedIcon />}
           />
         </Buttons>

@@ -9,17 +9,20 @@ import HeaderWithCloseButton from "@components/common/page-headers/header-with-c
 import LoaderFullWindow from "@components/common/loader/loader-full-window";
 // forms
 import TaskForm from "@forms/task.form";
+// utils
+import { checkIsLoggedIn } from "@utils/auth/check-is-logged-in";
 // schemas
 import { taskSchema } from "@schemas/task.shema";
 // store
 import { createTask, getTaskById, updateTask } from "@store/task/tasks.store";
-import { getIsLoggedIn } from "@store/user/users.store";
+import { getCurrentUserId, getIsLoggedIn } from "@store/user/users.store";
 
 const TaskUpdate = ({ onClose, taskId }) => {
   const [isLoading, setIsLoading] = useState(false);
   const isLoggedIn = useSelector(getIsLoggedIn());
   const dispatch = useDispatch();
 
+  const userId = useSelector(getCurrentUserId());
   const task = useSelector(getTaskById(taskId));
   const taskText = task?.text;
 
@@ -55,17 +58,23 @@ const TaskUpdate = ({ onClose, taskId }) => {
       isAdminUpdated: isTextUpdated()
     };
 
-    dispatch(updateTask(newData))
-      .then(() => {
-        onClose();
-        toast.success("Задача успешно обновлена!");
-      })
-      .catch((error) => {
-        toast.error(error);
-      })
-      .finally(() => {
-        setIsLoading(false);
-      });
+    if (checkIsLoggedIn(userId)) {
+      dispatch(updateTask(newData))
+        .then(() => {
+          onClose();
+          toast.success("Задача успешно обновлена!");
+        })
+        .catch((error) => {
+          toast.error(error);
+        })
+        .finally(() => {
+          setIsLoading(false);
+        });
+    } else {
+      setIsLoading(false);
+      onClose();
+      toast.error("Авторизуйтесь в Системе!");
+    }
   };
 
   return (
