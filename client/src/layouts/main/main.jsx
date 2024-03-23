@@ -91,7 +91,7 @@ const Main = React.memo(() => {
             <Task task={task} setState={setState} key={task._id}></Task>
           ))
       ) : (
-        <Loader size={50} />
+        <Loader size={50} height="500px" />
       )}
 
       {!isTasksLoading && (
