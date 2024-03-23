@@ -7,12 +7,12 @@ import express from "express";
 import config from "config";
 import chalk from "chalk";
 import cors from "cors";
-import http from "http";
+import https from "https";
 
 const PORT = config.get("port") ?? 8080;
 
 const app = express();
-const server = http.createServer(app);
+const server = https.createServer(app);
 
 app.use(cors(corsOptions));
 app.use(express.json());
