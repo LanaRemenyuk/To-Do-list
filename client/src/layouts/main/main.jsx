@@ -9,10 +9,10 @@ import Task from "@components/common/task/task";
 import { PostsMockData } from "@data/posts.mock";
 import DialogStyled from "@components/common/dialog/dialog-styled";
 import TaskCreate from "@components/pages/task-create/task-create";
-import { useState } from "react";
+import React, { useState } from "react";
 import useDialogHandlers from "@hooks/dialog/use-dialog-handlers";
 
-const Main = () => {
+const Main = React.memo(() => {
   const [state, setState] = useState({
     createTaskPage: false,
     updateTaskPage: false,
@@ -20,7 +20,7 @@ const Main = () => {
   });
 
   const tasksList = PostsMockData;
-  console.log("tasksList", tasksList);
+  // console.log("tasksList", tasksList);
 
   const { handleOpenTaskPage, handleCloseTaskPage } =
     useDialogHandlers(setState);
@@ -55,6 +55,6 @@ const Main = () => {
       /> */}
     </ContainerStyled>
   );
-};
+});
 
 export default Main;

@@ -19,11 +19,27 @@ const useDialogHandlers = (setState) => {
     setState((prevState) => ({ ...prevState, updateTaskPage: false }));
   };
 
+  // обновление стейта при открытии окна страницы авторизации
+  const handleOpenAuthPage = () => {
+    setState((prevState) => ({
+      ...prevState,
+      openAuthPage: true
+    }));
+  };
+  const handleCloseAuthPage = () => {
+    setState((prevState) => ({
+      ...prevState,
+      openAuthPage: false
+    }));
+  };
+
   return {
     handleOpenTaskPage,
     handleCloseTaskPage,
     handleOpenUpdateTaskPage,
-    handleCloseUpdateTaskPage
+    handleCloseUpdateTaskPage,
+    handleOpenAuthPage,
+    handleCloseAuthPage
   };
 };
 

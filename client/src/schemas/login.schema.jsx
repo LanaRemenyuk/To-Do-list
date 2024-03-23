@@ -4,7 +4,7 @@ export const loginSchema = yup.object().shape({
   email: yup
     .string()
     .email("Введите email корректно")
-    .required("Логин обязателен для заполнения"),
+    .required("Email обязателен для заполнения"),
   password: yup
     .string()
     .min(8, "Слишком короткий пароль - введите не менее 8 символов")

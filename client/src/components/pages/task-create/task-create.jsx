@@ -6,7 +6,7 @@ import SuccessCancelFormButtons from "@components/common/buttons/success-cancel-
 import HeaderWithCloseButton from "@components/common/page-headers/header-with-close-button";
 import LoaderFullWindow from "@components/common/loader/loader-full-window";
 // forms
-import TaskForm from "@forms/task/task.form";
+import TaskForm from "@forms/task.form";
 // schemas
 import { taskSchema } from "@schemas/task.shema";
 

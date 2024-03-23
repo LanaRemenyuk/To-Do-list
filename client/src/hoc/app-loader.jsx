@@ -1,14 +1,10 @@
 import { useEffect } from "react";
 import { useDispatch } from "react-redux";
 
-interface AppLoaderProps {
-  children: React.ReactNode;
-}
-
-const AppLoader = ({ children }: AppLoaderProps) => {
+const AppLoader = ({ children }) => {
   const dispatch = useDispatch();
 
-  useEffect(() => {}, [dispatch]);
+  // useEffect(() => {}, [dispatch]);
 
   return children;
 };

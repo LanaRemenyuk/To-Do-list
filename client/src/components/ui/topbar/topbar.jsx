@@ -1,5 +1,5 @@
 // libraries
-import React from "react";
+import React, { useState } from "react";
 import dayjs from "dayjs";
 import { Box, styled } from "@mui/material";
 import "dayjs/locale/ru";
@@ -12,6 +12,9 @@ import ApplicationName from "@components/ui/topbar/components/application-name";
 import ButtonStyled from "@components/common/buttons/button-styled.button";
 // common
 import { ContainerStyled } from "@common/container/container-styled";
+import DialogStyled from "@components/common/dialog/dialog-styled";
+import Login from "@components/pages/login/login";
+import useDialogHandlers from "@hooks/dialog/use-dialog-handlers";
 
 const Component = styled(Box)`
   width: 100%;
@@ -22,6 +25,13 @@ const Component = styled(Box)`
 `;
 
 const TopBar = React.memo(() => {
+  const [state, setState] = useState({
+    openAuthPage: false
+  });
+
+  const { handleOpenAuthPage, handleCloseAuthPage } =
+    useDialogHandlers(setState);
+
   return (
     <Component>
       <TopBarCurrentDate />
@@ -29,8 +39,15 @@ const TopBar = React.memo(() => {
       <ButtonStyled
         title="Войти"
         color="secondary"
-        // onClick={() => ()}
+        onClick={handleOpenAuthPage}
         icon={<LockOutlinedIcon />}
+      />
+
+      <DialogStyled
+        component={<Login onClose={handleCloseAuthPage} />}
+        maxWidth="xs"
+        onClose={handleCloseAuthPage}
+        open={state.openAuthPage}
       />
     </Component>
   );

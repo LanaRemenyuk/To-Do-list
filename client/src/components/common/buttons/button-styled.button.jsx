@@ -10,8 +10,8 @@ const ButtonStyled = ({
   background = null,
   backgroundHover = null,
   colorHover = null,
-  color,
-  margin
+  color = "success",
+  margin = null
 }) => {
   return (
     <Button
