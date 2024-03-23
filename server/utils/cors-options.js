@@ -1,5 +1,5 @@
 export const corsOptions = {
-  origin: ["http://localhost:5173", "https://bee-jee-gamma.vercel.app/"],
+  origin: ["http://localhost:5173", "https://beejee-salimov.netlify.app/"],
   methods: "GET,HEAD,PUT,PATCH,POST,DELETE,OPTIONS",
   allowedHeaders: [
     "Origin",
