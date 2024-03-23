@@ -17,6 +17,7 @@ const corsOptions = {
   origin: [
     "https://bee-jee-gamma.vercel.app/",
     "https://bee-jee-xi.vercel.app/",
+    "https://bee-jee-client.vercel.app/",
     "http://localhost:5173"
   ],
   methods: ["GET", "POST", "HEAD", "PUT", "DELETE", "PATCH", "OPTIONS"],
