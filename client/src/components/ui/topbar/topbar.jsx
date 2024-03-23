@@ -47,6 +47,7 @@ const TopBar = React.memo(() => {
     setOpen(false);
     toast.warning("Вы покинули Систему!");
   };
+
   const handleOpenCofirm = () => {
     setOpen(true);
   };

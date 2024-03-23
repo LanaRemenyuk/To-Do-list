@@ -11,6 +11,7 @@ import DialogConfirm from "@components/common/dialog/dialog-confirm";
 import LoaderFullWindow from "@components/common/loader/loader-full-window";
 // utils
 import { formatDate } from "@utils/date/format-date";
+import { checkIsLoggedIn } from "@utils/auth/check-is-logged-in";
 // hooks
 import useDialogHandlers from "@hooks/dialog/use-dialog-handlers";
 // store
@@ -64,13 +65,15 @@ const TaskFooter = ({ task, setState }) => {
           <ButtonStyled
             title="Редактировать"
             color="secondary"
-            onClick={() => handleOpenUpdateTaskPage(task?._id)}
+            onClick={() =>
+              checkIsLoggedIn() ? handleOpenUpdateTaskPage(task?._id) : null
+            }
             icon={<ModeEditOutlineOutlinedIcon />}
           />
           <ButtonStyled
             title="Удалить"
             color="error"
-            onClick={handleOpenCofirm}
+            onClick={() => (checkIsLoggedIn() ? handleOpenCofirm : null)}
             icon={<HighlightOffOutlinedIcon />}
           />
         </Buttons>

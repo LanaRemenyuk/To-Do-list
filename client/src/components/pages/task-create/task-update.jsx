@@ -13,9 +13,11 @@ import TaskForm from "@forms/task.form";
 import { taskSchema } from "@schemas/task.shema";
 // store
 import { createTask, getTaskById, updateTask } from "@store/task/tasks.store";
+import { getIsLoggedIn } from "@store/user/users.store";
 
 const TaskUpdate = ({ onClose, taskId }) => {
   const [isLoading, setIsLoading] = useState(false);
+  const isLoggedIn = useSelector(getIsLoggedIn());
   const dispatch = useDispatch();
 
   const task = useSelector(getTaskById(taskId));
