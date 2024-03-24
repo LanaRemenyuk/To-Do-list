@@ -19,15 +19,6 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use("/api", routes);
 
-if (process.env.NODE_ENV === "production") {
-  app.use("/", express.static(path.join(__dirname, "client")));
-  const indexPath = path.join(__dirname, "client", "index.html");
-
-  app.get("*", (req, res) => {
-    res.sendFile(indexPath);
-  });
-}
-
 server.listen(PORT, () =>
   console.log(chalk.green(`Server has been started on port ${PORT}`))
 );
