@@ -1,7 +1,6 @@
 export const corsOptions = {
   origin: [
     "http://localhost:5173",
-    "https://bee-jee-gamma.vercel.app",
     "https://bee-jee-xi.vercel.app",
     "https://bee-jee-client.vercel.app"
   ],

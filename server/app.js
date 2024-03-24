@@ -8,8 +8,10 @@ import config from "config";
 import chalk from "chalk";
 import cors from "cors";
 import https from "https";
+import dotenv from "dotenv";
 
-const PORT = config.get("port") ?? 8080;
+dotenv.config();
+const PORT = process.env.PORT ?? 8080;
 const app = express();
 
 const server = https.createServer(app);
