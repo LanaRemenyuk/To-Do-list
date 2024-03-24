@@ -7,14 +7,14 @@ import express from "express";
 import config from "config";
 import chalk from "chalk";
 import cors from "cors";
-import https from "https";
+import http from "http";
 import dotenv from "dotenv";
 
 dotenv.config();
 const PORT = process.env.PORT ?? 8080;
 const app = express();
 
-const server = https.createServer(app);
+const server = http.createServer(app);
 
 app.use(cors(corsOptions));
 app.use(express.json());
