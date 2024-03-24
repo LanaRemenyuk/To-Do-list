@@ -33,8 +33,10 @@ const TaskForm = ({
           required={true}
           value={capitalizeAllFirstLetters(data?.userName)}
           errors={errors?.userName}
-          multiline={true}
           inputProps={{ maxLength: 50 }}
+          onEnterPress={() => {
+            document.getElementById("userEmail").focus();
+          }}
         />
         <TextFieldStyled
           register={register}
@@ -42,8 +44,10 @@ const TaskForm = ({
           name="userEmail"
           required={true}
           errors={errors?.userEmail}
-          multiline={true}
           inputProps={{ maxLength: 50 }}
+          onEnterPress={() => {
+            document.getElementById("text").focus();
+          }}
         />
         <TextFieldStyled
           register={register}

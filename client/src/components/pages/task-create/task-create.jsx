@@ -62,7 +62,15 @@ const TaskCreate = ({ onClose }) => {
   return (
     <>
       <HeaderWithCloseButton title="Создать новую задачу" onClose={onClose} />
-      <TaskForm data={data} register={register} errors={errors} watch={watch} />
+      <TaskForm
+        data={data}
+        register={register}
+        errors={errors}
+        watch={watch}
+        handleSubmit={handleSubmit}
+        onSubmit={onSubmit}
+        onClose={onClose}
+      />
       <SuccessCancelFormButtons
         onSuccess={handleSubmit(onSubmit)}
         onCancel={onClose}

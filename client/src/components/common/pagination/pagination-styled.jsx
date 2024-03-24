@@ -63,7 +63,7 @@ const PaginationStyled = ({
   }, [elements, elemPerPage, elementsPerPage, currentPage, elementsFullList]);
 
   return (
-    elements?.length >= elementsPerPage && (
+    elements?.length > elementsPerPage && (
       <Component>
         <Stack spacing={2}>
           {elements?.length > 0 && (

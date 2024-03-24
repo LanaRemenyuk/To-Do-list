@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import { useSelector } from "react-redux";
 import { Box, styled } from "@mui/material";
 import Pagination from "@mui/material/Pagination";
@@ -34,9 +34,12 @@ const Main = React.memo(() => {
     updateTaskPage: false,
     taskId: null
   });
-
+  const [currentSortOrder, setCurrentSortOrder] = useState(null);
   const tasksList = useSelector(getTasksList());
-  const sortedTasksList = orderBy(tasksList, "created_at", ["desc"]);
+  const sortedTasksList = useMemo(
+    () => orderBy(tasksList, "created_at", ["desc"]),
+    [tasksList]
+  );
   const isTasksLoading = useSelector(getTaskLoadingStatus());
 
   const { handleOpenTaskPage, handleCloseTaskPage, handleCloseUpdateTaskPage } =
@@ -50,10 +53,45 @@ const Main = React.memo(() => {
     sortedByAdminUpdate
   } = useSortedTasks(sortedTasksList, setSortedTasks);
 
+  // useEffect для обновления списка задач при изменении isDone, isUpdate и удаления задачи
   useEffect(() => {
-    setSortedTasks(sortedTasksList);
+    const updatedTasks = tasksList?.filter((task) => {
+      const oldTask = sortedTasks?.find((oldTask) => oldTask._id === task._id);
+      if (!oldTask) return false;
+      return (
+        oldTask.isDone !== task.isDone ||
+        oldTask.isAdminUpdated !== task.isAdminUpdated
+      );
+    });
+
+    const deletedTaskIds = sortedTasks
+      ?.filter(
+        (task) => !tasksList.some((listTask) => listTask._id === task._id)
+      )
+      .map((task) => task._id);
+
+    if (deletedTaskIds?.length > 0) {
+      const taskWithoutDeleted = sortedTasks?.filter(
+        (task) => !deletedTaskIds.includes(task._id)
+      );
+      setSortedTasks(taskWithoutDeleted);
+    }
+
+    if (updatedTasks?.length > 0) {
+      setSortedTasks((prevSortedTasks) => {
+        return prevSortedTasks.map((prevTask) => {
+          const updatedTask = updatedTasks?.find(
+            (task) => task._id === prevTask._id
+          );
+          return updatedTask ? updatedTask : prevTask;
+        });
+      });
+    } else {
+      setSortedTasks(tasksList);
+    }
   }, [tasksList]);
 
+  // useEffect для пагинации
   useEffect(() => {
     setTasks(tasksList);
     const indexOfLastElement = currentPage * tasksPerPage;

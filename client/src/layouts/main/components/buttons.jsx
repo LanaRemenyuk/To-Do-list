@@ -47,6 +47,7 @@ const Buttons = ({
         color="secondary"
         onClick={() => sortedByName()}
         margin="0 0 16px 0"
+        disabled={!tasksList?.length}
         icon={
           sortOrders?.userName === "asc" ? (
             <FilterListOutlinedIcon />
@@ -60,6 +61,7 @@ const Buttons = ({
         color="secondary"
         onClick={sortedByEmail}
         margin="0 0 16px 0"
+        disabled={!tasksList?.length}
         icon={
           sortOrders?.userEmail === "asc" ? (
             <FilterListOutlinedIcon />

@@ -34,8 +34,16 @@ const TextFieldStyled = ({
   disabled = false,
   isHelperText = false,
   subtitle = "",
-  required = false
+  required = false,
+  onEnterPress = () => {}
 }) => {
+  const handleKeyDown = (event) => {
+    if (event.key === "Enter") {
+      event.preventDefault(); // Предотвращаем действие по умолчанию
+      onEnterPress(); // Вызываем функцию для перехода на следующее поле
+    }
+  };
+
   return (
     <Box sx={{ width: "100%" }}>
       <StyledTextField
@@ -46,8 +54,9 @@ const TextFieldStyled = ({
         value={value}
         label={label}
         rows={rows}
+        onKeyDown={handleKeyDown}
         InputProps={InputProps}
-        inputProps={inputProps}
+        inputProps={{ ...inputProps, onKeyDown: handleKeyDown }}
         multiline={multiline}
         error={!!errors}
         subtitle={errors?.message}

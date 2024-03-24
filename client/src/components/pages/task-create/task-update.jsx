@@ -41,7 +41,9 @@ const TaskUpdate = ({ onClose, taskId }) => {
   const data = watch();
 
   const isTextUpdated = () => {
-    if (taskText.trim() !== data.text.trim()) {
+    if (task?.isAdminUpdated) {
+      return true;
+    } else if (taskText.trim() !== data.text.trim()) {
       return true;
     } else {
       return false;

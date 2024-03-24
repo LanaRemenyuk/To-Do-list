@@ -5,7 +5,8 @@ const useSortedTasks = (tasksList, setTasks) => {
   const [sortOrders, setSortOrders] = useState({
     userName: "desc",
     userEmail: "desc",
-    isDone: "desc"
+    isDone: "desc",
+    isAdminUpdated: "desc"
   });
 
   const sortTasks = (sortBy) => {

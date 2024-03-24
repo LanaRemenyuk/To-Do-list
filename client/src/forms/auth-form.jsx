@@ -25,6 +25,9 @@ const AuthForm = ({ data, register, errors }) => {
           errors={errors?.login}
           value={data?.login}
           inputProps={{ maxLength: 150 }}
+          onEnterPress={() => {
+            document.getElementById("password").focus();
+          }}
         />
 
         <TextFieldStyled
