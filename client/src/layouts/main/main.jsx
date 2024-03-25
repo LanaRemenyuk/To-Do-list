@@ -53,7 +53,6 @@ const Main = React.memo(() => {
     sortedByAdminUpdate
   } = useSortedTasks(sortedTasksList, setSortedTasks);
 
-  // useEffect для обновления списка задач при изменении isDone, isUpdate и удаления задачи
   useEffect(() => {
     const updatedTasks = tasksList?.filter((task) => {
       const oldTask = sortedTasks?.find((oldTask) => oldTask._id === task._id);
@@ -90,18 +89,6 @@ const Main = React.memo(() => {
       setSortedTasks(tasksList);
     }
   }, [tasksList]);
-
-  // useEffect для пагинации
-  useEffect(() => {
-    setTasks(tasksList);
-    const indexOfLastElement = currentPage * tasksPerPage;
-    const indexOfFirstElement = indexOfLastElement - tasksPerPage;
-    const paginationSlicedTasks = tasks?.slice(
-      indexOfFirstElement,
-      indexOfLastElement
-    );
-    setPaginationSlicedTasks(paginationSlicedTasks);
-  }, [tasksList, tasks, currentPage, tasksPerPage]);
 
   useEffect(() => {
     setCurrentPage(1);

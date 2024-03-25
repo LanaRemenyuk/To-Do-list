@@ -32,6 +32,7 @@ const PaginationStyled = ({
 }) => {
   const [totalPages, setTotalPages] = useState(1);
 
+  const newTotalPages = Math.ceil(elements?.length / elemPerPage);
   const indexOfFirstElement = (currentPage - 1) * elementsPerPage;
   const indexOfLastElement = indexOfFirstElement + elementsPerPage;
   const paginationSlicedElements = slice(
@@ -46,18 +47,10 @@ const PaginationStyled = ({
 
   useEffect(() => {
     if (elements?.length > 0) {
-      const newTotalPages = Math.ceil(elements?.length / elemPerPage);
       setTotalPages(newTotalPages);
       if (currentPage > newTotalPages) {
         setCurrentPage(newTotalPages);
       }
-      const indexOfFirstElement = (currentPage - 1) * elementsPerPage;
-      const indexOfLastElement = indexOfFirstElement + elementsPerPage;
-      const paginationSlicedElements = slice(
-        elements,
-        indexOfFirstElement,
-        indexOfLastElement
-      );
       setPaginationSlicedElements(paginationSlicedElements);
     }
   }, [elements, elemPerPage, elementsPerPage, currentPage, elementsFullList]);
